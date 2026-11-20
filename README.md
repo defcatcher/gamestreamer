@@ -30,7 +30,7 @@ We tried Parsec, Sunshine + Moonlight and Steam Remote Play with a Mac mini as t
 - **WebRTC** via [Pion](https://github.com/pion/webrtc): paced sending, NACK retransmissions, keyframes on demand.
 - **Low-latency playback**: frames carry `playout-delay = 0`, so the browser shows each frame as soon as it's decoded.
 - **Keyboard and mouse** over DataChannels: unreliable/unordered for motion, reliable for clicks and keys. Physical key mapping (`KeyboardEvent.code` → macOS keycodes), Ctrl → Control, Alt → Option.
-- **Two mouse modes**: *menu* (absolute position, the viewer's own zero-lag cursor) and *camera* (Pointer Lock + raw deltas, unlimited turning in FPS/third-person games). Native Mac games that grab the cursor switch the mode automatically.
+- **Two mouse modes**: *menu* (absolute position, the viewer's own zero-lag cursor) and *camera* (Pointer Lock + raw deltas, unlimited turning in FPS/third-person games). Switch with **Ctrl+Alt+M**. There is also an *experimental* auto-switch for games that pin the cursor; it doesn't trigger for games under CrossOver and is untested with most native games.
 - **Game audio only**: a separate audio capture that skips Discord, messengers and notifications, encoded to Opus (10 ms frames) and played with WebCodecs + Web Audio.
 - **Built-in latency meter**: the stats overlay shows glass-to-glass latency split into host / network / browser.
 - **Menu-bar app**: PIN, bitrate, frame rate, audio source, permission status, launch at login.
@@ -137,7 +137,7 @@ scripts/     make-cert.sh, build.sh
 
 - H.264 only, one display, one viewer, no gamepad yet.
 - Apple Silicon only; not notarized.
-- Automatic camera-mode switching works for native Mac games, not for games under CrossOver (use Ctrl+Alt+M there).
+- Automatic camera-mode switching is experimental: it doesn't work for games under CrossOver and has barely been tested with native Mac games. Ctrl+Alt+M always works.
 
 ## Credits
 
