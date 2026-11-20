@@ -18,11 +18,9 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"flag"
-	"fmt"
 	"io"
 	"io/fs"
 	"log"
-	"net"
 	"net/http"
 	"os"
 	"sync"
@@ -616,23 +614,6 @@ func (s *server) writeAudio(b []byte) {
 
 // ---------------------------------------------------------------- HTTP
 
-func tailscaleIPs() []string {
-	_, cgnat, _ := net.ParseCIDR("100.64.0.0/10")
-	var out []string
-	addrs, err := net.InterfaceAddrs()
-	if err != nil {
-		return nil
-	}
-	for _, a := range addrs {
-		if ipn, ok := a.(*net.IPNet); ok {
-			if ip4 := ipn.IP.To4(); ip4 != nil && cgnat.Contains(ip4) {
-				out = append(out, ip4.String())
-			}
-		}
-	}
-	return out
-}
-
 func noCache(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Cache-Control", "no-store")
@@ -657,21 +638,8 @@ func main() {
 	mux.HandleFunc("/api/offer", srv.handleOffer)
 
 	// Listen on localhost (local tests and `tailscale serve`) and on the
-	// Tailscale address. Never on the LAN/internet interfaces.
-	addrs := append([]string{"127.0.0.1"}, tailscaleIPs()...)
-	var listening []string
-	for _, a := range addrs {
-		addr := net.JoinHostPort(a, fmt.Sprint(*port))
-		ln, err := net.Listen("tcp4", addr)
-		if err != nil {
-			log.Printf("listen %s: %v", addr, err)
-			continue
-		}
-		listening = append(listening, addr)
-		go func() { log.Printf("http on %s stopped: %v", addr, http.Serve(ln, mux)) }()
-	}
-	log.Printf("listening on %v", listening)
-	host.event(map[string]any{"t": "ready", "listen": listening})
+	// addresses Tailscale reports. Never on LAN/internet interfaces.
+	(&listeners{port: *port, handler: mux, host: host}).run()
 
 	srv.readHost(os.Stdin)
 }
