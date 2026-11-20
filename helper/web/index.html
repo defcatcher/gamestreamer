@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GameStreamer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage"><video id="video" autoplay playsinline></video></div>
+
+<div id="login" class="panel">
+  <h1>GameStreamer</h1>
+  <form id="loginForm">
+    <input id="pin" inputmode="numeric" autocomplete="off" maxlength="6" placeholder="PIN" autofocus>
+    <button type="submit" id="btnConnect">Connect</button>
+  </form>
+  <p id="loginError" class="error"></p>
+</div>
+
+<div id="status" class="toast hidden"></div>
+<button id="unmute" class="hidden"></button>
+<pre id="hud" class="hidden"></pre>
+
+<div id="toolbar" class="hidden">
+  <button id="btnFull" title="Ctrl+Alt+F">Fullscreen</button>
+  <label><span id="bitrateLabel">Bitrate</span>
+    <select id="bitrate">
+      <option value="5000">5</option>
+      <option value="10000">10</option>
+      <option value="15000">15</option>
+      <option value="20000">20</option>
+      <option value="25000">25</option>
+      <option value="30000">30</option>
+      <option value="40000">40</option>
+      <option value="50000">50</option>
+    </select> <span id="mbps">Mbit/s</span>
+  </label>
+  <button id="btnMode" title="Ctrl+Alt+M">Mouse: menu</button>
+  <button id="btnHud" title="Ctrl+Alt+S">Stats</button>
+  <span class="hint" id="hint"></span>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# build output
+/build/
+helper/gs-helper
+# local signing identity — never commit (private key)
+/.signing/
+# personal notes
+/LOCAL.md
+.DS_Store
+*.log
+/reddit-post.md

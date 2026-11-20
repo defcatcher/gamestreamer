@@ -1,0 +1,34 @@
+:root { color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #000; color: #e6e6e6;
+  font: 14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; overflow: hidden; }
+
+#stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+#video { width: 100%; height: 100%; object-fit: contain; background: #000; outline: none; }
+
+.panel { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  background: #16181d; border: 1px solid #2a2e36; border-radius: 12px; padding: 28px 32px;
+  min-width: 300px; text-align: center; box-shadow: 0 10px 40px #0008; }
+.panel h1 { margin: 0 0 18px; font-size: 20px; font-weight: 600; }
+.panel form { display: flex; gap: 8px; }
+.panel input { flex: 1; font-size: 20px; letter-spacing: 6px; text-align: center; padding: 8px;
+  background: #0d0f12; color: #fff; border: 1px solid #333a45; border-radius: 8px; width: 140px; }
+button, select { background: #2b6cdf; color: #fff; border: 0; border-radius: 8px; padding: 8px 14px;
+  font: inherit; cursor: pointer; }
+select { background: #262a32; padding: 4px 8px; }
+.error { color: #ff6b6b; min-height: 1.4em; margin: 12px 0 0; }
+.hidden { display: none !important; }
+
+.toast { position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  background: #000c; border: 1px solid #333; padding: 8px 16px; border-radius: 8px; z-index: 10; }
+
+#unmute { position: fixed; top: 16px; right: 16px; z-index: 11; background: #b3261e; }
+
+#hud { position: fixed; top: 8px; left: 8px; margin: 0; padding: 6px 10px; z-index: 5;
+  background: #000a; border-radius: 6px; font: 12px/1.45 ui-monospace, Consolas, monospace;
+  color: #9fe39f; pointer-events: none; white-space: pre; }
+
+#toolbar { position: fixed; bottom: 0; left: 0; right: 0; display: flex; gap: 14px; align-items: center;
+  padding: 8px 12px; background: #000b; z-index: 5; }
+#toolbar .hint { margin-left: auto; color: #888; font-size: 12px; }
+:fullscreen #toolbar { display: none; }
